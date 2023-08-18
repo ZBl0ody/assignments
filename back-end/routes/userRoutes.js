@@ -1,13 +1,16 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const User = require("../models/user");
 const Now_Playing = require("../models/movie");
 const Order = require("../models/order");
+const User = require("../models/user");
+const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
+const express = require("express");
+const bcrypt = require("bcrypt");
 const router = express.Router();
 const currentUser = {
-  userName: "john",
-  email: "john@gmail.com",
-  _id: "64d5285ba4304b7955bede1c",
+  userName: "Z_Bl0ody",
+  email: "boody.15as@gmail.com",
+  password: "123",
+  _id: "64df7362f23719a2abcfb9f1",
 };
 
 // Route - /Cart
@@ -156,19 +159,49 @@ router.post("/removeFromCart", (req, res) => {
 });
 
 // Route - /user
-router.post("/addUser", (req, res) => {
+router.post("/login", (req, res) => {
   const userData = req.body;
-  const newUser = new User({
-    userName: userData.userName,
-    email: userData.email,
-    cart: {
-      items: [],
-    },
-  });
-  newUser
-    .save()
-    .then((newuser) => {
-      res.json({ message: "user created!!" });
+  let getedUser;
+  User.findOne({ email: userData.email })
+    .then((searchedEmail) => {
+      if (!searchedEmail) {
+        return res.status(401).json({ msg: "user not found" });
+      }
+      getedUser = searchedEmail;
+      return bcrypt.compare(userData.password, searchedEmail.password);
+    })
+    .then((check) => {
+      if (!check) {
+        return res.status(401).json({ msg: "password is wrong" });
+      }
+      let token = jwt.sign(
+        { email: getedUser.email, userId: getedUser._id },
+        "our_angular_node_app_jwt_secret",
+        { expiresIn: "1h" }
+      );
+      res.status(200).json({ msg: "log in successfully", token: token });
+    })
+    .catch((err) => {
+      return res.status(401).json({ msg: "Emial or password are wrong" });
+    });
+});
+
+router.post("/signup", (req, res) => {
+  const userData = req.body;
+  bcrypt
+    .hash(userData.password, 10)
+    .then((hashedpass) => {
+      const newUser = new User({
+        userName: userData.userName,
+        email: userData.email,
+        password: hashedpass,
+        cart: {
+          items: [],
+        },
+      });
+      newUser.save().then((newuser) => {
+        res.json({ message: "user created!!", user: newUser });
+      });
     })
     .catch((err) => {
       console.log("Error:", err);

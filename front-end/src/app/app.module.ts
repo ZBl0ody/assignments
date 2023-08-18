@@ -18,6 +18,7 @@ import { TvShowComponent } from './tv-show/tv-show.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderComponent } from './order/order.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +34,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     CartComponent,
     OrderComponent,
     SignUpComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

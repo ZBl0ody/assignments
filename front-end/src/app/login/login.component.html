@@ -1,26 +1,7 @@
-<h3 class="alert alert-danger m-3" role="alert" *ngIf="ermsg.length != 0">
-  {{ ermsg }}
+<h3 class="alert alert-danger m-3" role="alert" *ngIf="errmsg.length != 0">
+  {{ errmsg }}
 </h3>
-<form
-  (submit)="onSignUp(signupForm)"
-  #signupForm="ngForm"
-  class="container m-5"
->
-  <div class="form-group">
-    <label>userName:</label>
-    <input
-      type="text"
-      name="userName"
-      ngModel
-      class="form-control"
-      placeholder="UserName"
-      #userNameInput="ngModel"
-      required
-    />
-    <p class="form-text text-danger" *ngIf="userNameInput.invalid">
-      Please Enter valid UserName
-    </p>
-  </div>
+<form (submit)="onlogin(loginForm)" #loginForm="ngForm" class="container m-5">
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
     <input
@@ -49,8 +30,8 @@
       required
     />
     <p class="form-text text-danger" *ngIf="userPasswordInput.invalid">
-      passwoed at least 5 characters
+      password at least 5 characters
     </p>
   </div>
-  <button type="submit" class="btn btn-primary mt-3">SignUp</button>
+  <button type="submit" class="btn btn-primary">login</button>
 </form>

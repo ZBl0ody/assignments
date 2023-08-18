@@ -1,7 +1,9 @@
 var mongoose = require("mongoose");
-let mongooseSchema = mongoose.Schema({
-  userName: String,
-  email: String,
+var mongoosValidator = require("mongoose-unique-validator");
+let userSchema = mongoose.Schema({
+  userName: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
   cart: {
     items: [
       {
@@ -11,4 +13,6 @@ let mongooseSchema = mongoose.Schema({
     ],
   },
 });
-module.exports = mongoose.model("User", mongooseSchema);
+userSchema.plugin(mongoosValidator);
+module.exports = mongoose.model("User", userSchema);
+// { typeof: String, required: true, unique: true }

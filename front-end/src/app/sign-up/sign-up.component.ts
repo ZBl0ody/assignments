@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Route, Router } from '@angular/router';
 import { UserService } from '../user.service';
 
 @Component({
@@ -8,8 +9,8 @@ import { UserService } from '../user.service';
   styleUrls: ['./sign-up.component.css'],
 })
 export class SignUpComponent implements OnInit {
-  constructor(private userServ: UserService) {}
-
+  constructor(private userServ: UserService, private router: Router) {}
+  ermsg: string = '';
   ngOnInit(): void {}
   onSignUp(formData: NgForm) {
     if (formData.invalid) {
@@ -23,7 +24,10 @@ export class SignUpComponent implements OnInit {
       )
       .subscribe({
         next: (data) => {
-          console.log(data);
+          this.router.navigate(['/logIn']);
+        },
+        error: () => {
+          this.ermsg = 'Emial already exist';
         },
       });
   }
