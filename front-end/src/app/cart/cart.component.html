@@ -1,0 +1,117 @@
+<section class="h-100 h-custom" style="background-color: #eee">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div class="card">
+          <div class="card-body p-4">
+            <div class="row d-flex align-items-center">
+              <div class="col-lg-7">
+                <h5 class="mb-3 justify-content-between d-flex">
+                  <a routerLink="/movies" class="text-body"
+                    ><i class="fas fa-long-arrow-alt-left me-2"></i>Continue
+                    shopping</a
+                  >
+                  <a routerLink="/orders" class="text-body">
+                    order <i class="fas fa-long-arrow-alt-right me-2"></i>
+                  </a>
+                </h5>
+                <hr />
+
+                <div
+                  class="d-flex justify-content-between align-items-center mb-4"
+                >
+                  <p class="mb-1">Shopping cart</p>
+                  <p class="mb-0">You have {{ length }} items in your cart</p>
+                </div>
+                <!-- ////////////////////////////////////// -->
+                <div class="" *ngFor="let item of cart">
+                  <div
+                    class="card my-3 mb-lg-0 text-white sp"
+                    [style.background-image]="
+                      'url(' + imgPath + item.backdrop_path + ')'
+                    "
+                  >
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row align-items-center">
+                          <div>
+                            <img
+                              [src]="imgPath + item.poster_path"
+                              class="img-fluid rounded-3"
+                              alt="Shopping item"
+                              style="width: 65px"
+                            />
+                          </div>
+                          <div class="ms-3">
+                            <h5>{{ item.title }}</h5>
+                            <app-rating
+                              [rating]="item.vote_average"
+                            ></app-rating>
+
+                            <p class="small mb-0">
+                              {{ item.original_language }}
+                            </p>
+                            <p class="small mb-0">
+                              {{ item.release_date }}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center">
+                          <div style="width: 50px">
+                            <h5 class="fw-normal mb-0">{{ item.quantity }}</h5>
+                          </div>
+                          <div style="width: 80px">
+                            <h5 class="mb-0">${{ item.vote_count / 20 }}</h5>
+                          </div>
+                          <button (click)="remove(item)" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- ////////////////////////////////////// -->
+              </div>
+
+              <div class="col-lg-5">
+                <div class="card bg-danger text-white rounded-3">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <p class="mb-2">Subtotal</p>
+                      <p class="mb-2">${{ TotalPrice }}</p>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                      <p class="mb-2">Shipping</p>
+                      <p class="mb-2">$20.00</p>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-4">
+                      <p class="mb-2">Total(Incl. taxes)</p>
+                      <p class="mb-2">{{ TotalPrice + 20 }}</p>
+                    </div>
+
+                    <button
+                      *ngIf="cart.length"
+                      (click)="checkOut(cart)"
+                      type="button"
+                      class="btn btn-outline-dark btn-block btn-lg"
+                    >
+                      <div
+                        class="d-flex justify-content-between align-items-center"
+                      >
+                        {{ TotalPrice + 20 }} Checkout
+                        <i class="fas fa-long-arrow-alt-right ms-2"></i>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

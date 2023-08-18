@@ -1,0 +1,9 @@
+section {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+img {
+  -webkit-box-shadow: 0px 0px 144px 45px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 144px 45px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 144px 45px rgba(0, 0, 0, 0.75);
+}

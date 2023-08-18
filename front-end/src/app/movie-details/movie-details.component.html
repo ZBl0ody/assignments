@@ -1,0 +1,46 @@
+<section
+  class="d-flex justify-content-around text-white h-100"
+  [style.background-image]="
+    'url(' + imgPath + selectedMovie.backdrop_path + ')'
+  "
+>
+  <img
+    class="rounded my-5"
+    [src]="imgPath + selectedMovie.poster_path"
+    [alt]="selectedMovie.title"
+    height="400"
+    width="300"
+  />
+  <div class="w-50 my-5">
+    <h1>{{ selectedMovie.title }}</h1>
+    <h3>{{ selectedMovie.release_date }}</h3>
+    <h5>{{ selectedMovie.overview }}</h5>
+    <div>
+      genres [
+      <span
+        class="card-text mx-1"
+        *ngFor="let genre of selectedMovie.genre_ids"
+        >{{ genre }}</span
+      >]
+    </div>
+    <p
+      [ngStyle]="{
+        color:
+          selectedMovie.vote_count == 0
+            ? 'red'
+            : selectedMovie.vote_count !== 0
+            ? 'Green'
+            : null
+      }"
+    >
+      tickets Quantity: {{ selectedMovie.vote_count }}
+    </p>
+    <button
+      (click)="buyticket(selectedMovie)"
+      class="btn btn-danger w-50"
+      [ngClass]="{ disabled: selectedMovie.quantity == 0 }"
+    >
+      Buy tickets
+    </button>
+  </div>
+</section>

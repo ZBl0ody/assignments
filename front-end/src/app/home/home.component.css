@@ -1,0 +1,14 @@
+main {
+  margin-top: 200px;
+}
+span {
+  color: crimson;
+}
+i {
+  font-size: 30px;
+}
+.fa-film {
+  font-size: 200px;
+  color: crimson;
+  rotate: 30deg;
+}

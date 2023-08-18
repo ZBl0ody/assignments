@@ -1,0 +1,58 @@
+<div
+  class="d-flex flex-column align-items-center gap-2 justify-content-center flex-wrap my-5"
+>
+  <div class="d-flex gap-3">
+    <input type="text" [(ngModel)]="searchVal" class="rounded" />
+    <h5>search</h5>
+  </div>
+  <div class="d-flex gap-2 justify-content-center flex-wrap">
+    <div
+      class="card justify-content-between"
+      style="width: 18rem"
+      *ngFor="let movie of movies"
+    >
+      <div [routerLink]="['/movies', movie.id]">
+        <img
+          class="card-img-bottom"
+          [src]="imgPath + movie.poster_path"
+          alt="Card image cap"
+          style="height: 400px"
+        />
+        <div class="card-body d-flex flex-column justify-content-between">
+          <h5 class="card-title">{{ movie.title }}</h5>
+          <div></div>
+          {{ movie.vote_average }}
+          <app-rating [rating]="movie.vote_average"></app-rating>
+          <p
+            [ngStyle]="{
+              color:
+                movie.vote_count == 0
+                  ? 'red'
+                  : movie.vote_count !== 0
+                  ? 'Green'
+                  : null
+            }"
+          >
+            tickets : {{ movie.vote_count }}
+          </p>
+        </div>
+      </div>
+      <button
+        (click)="addToCard(movie)"
+        class="btn btn-danger m-2"
+        [ngClass]="{ disabled: movie.vote_count == 0 }"
+      >
+        Buy tickets
+      </button>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center my-5">
+    <mat-paginator
+      [length]="total_items"
+      [pageSize]="pages_size"
+      aria-label="Select page"
+      (page)="changePage($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>
