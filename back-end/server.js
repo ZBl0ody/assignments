@@ -14,7 +14,7 @@ app.use(cors());
 // Connect to the database
 mongoose
   .connect(
-    "mongodb+srv://Z_Bl0ody:boody01156@cluster0.psfolkh.mongodb.net/movies"
+    "mongodb+srv:/.mongodb.net/movies"
   )
   .then(() => {
     console.log("Database connected💥");
